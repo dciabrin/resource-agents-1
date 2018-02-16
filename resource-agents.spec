@@ -48,7 +48,7 @@
 Name:		resource-agents
 Summary:	Open Source HA Reusable Cluster Resource Scripts
 Version:	3.9.5
-Release:	105%{?dist}_4.8.rdo1
+Release:	105%{?dist}_4.8.rdo2
 License:	GPLv2+, LGPLv2+ and ASL 2.0
 URL:		https://github.com/ClusterLabs/resource-agents
 %if 0%{?fedora} || 0%{?centos_version} || 0%{?rhel}
@@ -244,6 +244,7 @@ Patch183:	bz1524454-ocf_attribute_target-fallback-fix.patch
 Patch184:	bz1535394-NovaEvacuate-add-support-for-keystone-v3-authentication.patch
 Patch185:	bz1537444-sap_redhat_cluster_connector-fix-unknown-gvi-function.patch
 Patch186:	bz1543366-redis-add-support-for-tunneling-replication-traffic.patch
+Patch187:	bz1546083-galera-fix-permission-of-temporary-log-file-for-mari.patch
 
 Obsoletes:	heartbeat-resources <= %{version}
 Provides:	heartbeat-resources = %{version}
@@ -545,6 +546,7 @@ exit 1
 %patch184 -p1
 %patch185 -p1
 %patch186 -p1
+%patch187 -p1
 
 %build
 if [ ! -f configure ]; then
@@ -808,6 +810,11 @@ ccs_update_schema > /dev/null 2>&1 ||:
 %endif
 
 %changelog
+* Fri Feb 16 2018 Damien Ciabrini <dciabrin@redhat.com> - 3.9.5-105_4.8.rdo2
+- galera: fix permission of temporary log file for mariadb
+
+  Resolves: rhbz#1546083
+
 * Thu Feb  8 2018 Damien Ciabrini <dciabrin@redhat.com> - 3.9.5-105_4.8.rdo1
 - redis: add support for tunneling replication traffic
 
